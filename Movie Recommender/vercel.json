@@ -1,0 +1,18 @@
+{
+    "version": 2,
+    "builds": [
+      {
+        "src": "app.py",
+        "use": "@vercel/python"
+      },
+      {
+        "src": "package.json",
+        "use": "@vercel/static-build"
+      }
+    ],
+    "routes": [
+      { "src": "/recommend", "dest": "src/models/Embedding-based CF.py" },
+      { "src": "/(.*)", "dest": "build/$1" }
+    ]
+  }
+  
