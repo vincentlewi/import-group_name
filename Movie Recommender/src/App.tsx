@@ -4,7 +4,7 @@ import './App.css'
 
 function App() {
   const [count, setCount] = useState(0)
-  fetch('http://127.0.0.1:5000/recommend')
+  fetch('https://import-group-name.vercel.app/recommend')
   .then(function (response) {
       return response.text()
   }).then(function (text) {
