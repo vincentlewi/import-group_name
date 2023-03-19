@@ -1,0 +1,36 @@
+.movie-card{
+    border: 1px solid rgb(127, 127, 127);
+    margin: 1em;
+    flex: 1 1 20%;
+    max-width: 20%;
+    border-radius: 10px;
+}
+
+.movie-card img{
+    border-radius: 10px 10px 0 0;
+    width: 100%;
+}
+
+.movie-list{
+    width: 70%;
+    display: flex;
+    flex-wrap: wrap; 
+}
+
+.movie-desc{
+    text-align: start;
+    padding: 10px;
+}
+
+.movie-title{
+    font-weight: 600;
+}
+
+.movie-price{
+    color: red;
+    font-weight: 400;
+}
+
+.movie-button{
+    width: 100%;
+}
