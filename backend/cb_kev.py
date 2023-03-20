@@ -86,6 +86,7 @@ def get_cb_kev():
         movie_name = highest_rated['title']
         # print(movie_id)
         # print(movie_name)
+        # test
 
         target_movie = df_movies.loc[[movie_id]]
         normalised_df_movies = df_movies.astype(np.float32)
