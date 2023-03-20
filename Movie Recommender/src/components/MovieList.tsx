@@ -27,8 +27,10 @@ function MovieList(props: any) {
         {movies.map((movie: any) => 
           <Movie 
             key={movie.movieId} 
+            movieId={movie.movieId} 
             title={movie.title}
             genres={movie.genres}
+            imdb_rating={movie.imdb_rating}
             selectedMovies={props.selectedMovies} 
             setSelectedMovies={props.setSelectedMovies}
           />

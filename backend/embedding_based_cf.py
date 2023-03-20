@@ -11,7 +11,7 @@ CF_bp = Blueprint('CF', __name__)
 
 cors = CORS(CF_bp)
 
-df_movie = pd.read_csv('datasets\movielens_original\movies.csv')
+df_movie = pd.read_csv('datasets\movies_web_app_final.csv')
 
 @CF_bp.route('/', methods=['GET'])
 def get_all():
@@ -23,6 +23,8 @@ def get_all():
 def search(search):
     # GET request
     if request.method == 'GET':
-        return df_movie[df_movie.title.apply(lambda x: search in x.lower())].to_json(orient='records')
+        df_search = df_movie[df_movie.title.apply(lambda x: search in x.lower())].head().rename(columns={'title': 'label'})
+        df_search['value'] = df_search['label']
+        return df_search[['value', 'label']].to_json(orient='records')
 
 # new_model = tf.keras.models.load_model('saved_model/my_model')
