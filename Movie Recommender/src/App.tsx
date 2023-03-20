@@ -7,7 +7,7 @@ import Recommendation from './components/Recommendation'
 function App() {
   let [selectedMovies, setSelectedMovies] = useState(Array())
   let [loading, setLoading] = useState(false)
-  let [recommendations, setRecommendations] = useState([{movieId: 0, title: '', genres: '', imdb_rating: 0}])
+  let [recommendations, setRecommendations] = useState(Array())
 
   return (
     <div className="App">

@@ -10,7 +10,7 @@ import json
 # df = pd.read_csv('datasets/movielens_original/ratings.csv')
 # df_movie = pd.read_csv('datasets/movielens_original/movies.csv')
 
-cb_kev_bp = Blueprint('kev_cb', __name__)
+cb_kev_bp = Blueprint('cb_kev', __name__)
 
 cors = CORS(cb_kev_bp)
 
@@ -80,8 +80,8 @@ def get_cb_kev():
     # GET request
     if request.method == 'POST':
         user_cart = json.loads(request.data) #in the future will take json from user directly
-        # print(user_cart)
-        highest_rated = max(user_cart, key=lambda x: x['user_rating'])
+        print(user_cart)
+        highest_rated = max(user_cart, key=lambda x: x['userRating'])
         movie_id = int(highest_rated['movieId'])
         movie_name = highest_rated['title']
         # print(movie_id)
@@ -98,9 +98,10 @@ def get_cb_kev():
 
         # print(sorted_similar_movies)
 
-        def get_title_from_index(index):
-            movieId = df_movies_original.iloc[index]['movieId']
-            return df_movies_full[df_movies_full.movieId == movieId]["title"].values[0]
+        def get_info_from_index(index):
+            movieId = int(df_movies_original.iloc[index]['movieId'])
+            title = df_movies_full[df_movies_full.movieId == movieId]["title"].values[0]
+            return movieId, title
         
         target_movie_cosine_sim_index = df_movies_original.index[df_movies_original['movieId'] == movie_id].values[0] #get 0-based index in cosine similarity array of the target movie
         i=0
@@ -110,15 +111,18 @@ def get_cb_kev():
             if movie[0] == target_movie_cosine_sim_index:
                 continue
             # print(get_title_from_index(movie[0]))
-            title = get_title_from_index(movie[0])
+            movieId, title = get_info_from_index(movie[0])
             score = movie[1]
             final_dict[i] = {
+                'movieId': movieId,
                 'title': title,
                 'score': score
             }
             i=i+1
             if i>=50:
                 break
+        final_dict_json = json.dumps(final_dict, indent=4)
+        print(final_dict_json)
         return final_dict        
     # if request.method == 'GET':
     #     target_movie = df_movies.loc[[movie_id]]
