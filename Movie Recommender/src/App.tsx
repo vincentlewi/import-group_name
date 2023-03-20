@@ -2,14 +2,24 @@ import { useState, useEffect } from 'react'
 import './App.css'
 import Cart from './components/Cart'
 import MovieList from './components/MovieList'
+import Recommendation from './components/Recommendation'
 
 function App() {
   let [selectedMovies, setSelectedMovies] = useState(Array())
+  let [loading, setLoading] = useState(false)
+  let [recommendations, setRecommendations] = useState([{movieId: 0, title: '', genres: '', imdb_rating: 0}])
 
   return (
     <div className="App">
-      <MovieList selectedMovies={selectedMovies} setSelectedMovies={setSelectedMovies}/>
-      <Cart selectedMovies={selectedMovies}/>
+      {!recommendations[0]
+      ? !loading
+        ? <>
+            <MovieList selectedMovies={selectedMovies} setSelectedMovies={setSelectedMovies}/>
+            <Cart selectedMovies={selectedMovies}/>
+          </>
+        : <div>Loading...</div>
+      : <Recommendation />
+      }
     </div>
   )
 }
