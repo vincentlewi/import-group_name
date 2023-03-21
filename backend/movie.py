@@ -2,6 +2,7 @@ from flask import Flask, jsonify, request, Blueprint
 from flask_cors import CORS
 import pandas as pd
 import numpy as np
+import string
 # import tensorflow as tf
 
 # df = pd.read_csv('datasets/movielens_original/ratings.csv')
@@ -28,7 +29,7 @@ def get_all():
 def search(search):
     # GET request
     if request.method == 'GET':
-        df_search = df_movie[df_movie.title.apply(lambda x: search in x.lower())].head(20).rename(columns={'movieId': 'value', 'title': 'label'})
+        df_search = df_movie[df_movie.title.apply(lambda x: search.lower().translate(str.maketrans('', '', string.punctuation)) in x.lower().translate(str.maketrans('', '', string.punctuation)))].head(20).rename(columns={'movieId': 'value', 'title': 'label'})
         return df_search[['value', 'label']].to_json(orient='records')
 
 # new_model = tf.keras.models.load_model('sa1ved_model/my_model')
