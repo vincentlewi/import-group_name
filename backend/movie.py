@@ -18,7 +18,7 @@ df_movie = pd.read_csv('datasets/to_use/movies_web_app_with_id_final.csv')
 def get_all():
     # GET request
     if request.method == 'GET':
-        return df_movie.sort_values(by='num_of_rating', ascending=False).head(100).sample(12).to_json(orient='records')
+        return df_movie.sort_values(by='num_of_rating', ascending=False).head(1000).sample(100).to_json(orient='records')
     
     if request.method == 'POST':
         data = request.get_json()
