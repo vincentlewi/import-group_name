@@ -4,14 +4,11 @@ import './SearchBar.css';
 import StarRating from './StarRating';
 
 function SearchBar(props: any) {
-  const [search, setSearch] = useState('');
-  const [movies, setMovies] = useState([]);
-  const [selectedOption, setSelectedOption] = useState(null);
+
   const searchMovies = async (inputValue: string) => {
     if (inputValue) {
       const response = await fetch(`http://127.0.0.1:5000/search/${inputValue}`);
       const data = await response.json();
-      setMovies(data);
       return data;
     }
     return [];
@@ -40,6 +37,10 @@ function SearchBar(props: any) {
     },
   };
 
+  let [rating, setRating] = useState(0) 
+  let [movie, setMovie] = useState({movieId: 0, title: ''})
+  let selectedMovie = {movieId: movie.movieId, title: movie.title, userRating: rating}
+
   return (
     <div className='search-bar'>
       <AsyncSelect
@@ -47,11 +48,11 @@ function SearchBar(props: any) {
         loadOptions={loadOptions}
         defaultOptions
         placeholder='Search for a movie...'
-        onChange={(selectedOption) => setSelectedOption(selectedOption)}
+        onChange={(selectedOption: Object) => {setMovie({movieId: selectedOption.value, title: selectedOption.label}), setRating(0)}}
         styles={colourStyles}
       />
-      <div>
-        <StarRating />
+      <div> 
+        <StarRating rating={rating} setRating={setRating}/>
       </div>
       {/* <input
         className='search-input'
@@ -59,8 +60,16 @@ function SearchBar(props: any) {
         value={search}
         onChange={(e) => setSearch(e.target.value)}
       /> */}
-      <button className='search-button' onClick={() => setSearch(search)}>
-        Search
+      <button 
+        disabled={!rating||!movie.movieId}
+        className='search-button' 
+        onClick={() => props.setSelectedMovies(
+          props.selectedMovies.find((movie: Object) => JSON.stringify(movie.title) === JSON.stringify(selectedMovie.title))
+          ? props.selectedMovies.filter((movie: Object) => JSON.stringify(movie.title) != JSON.stringify(selectedMovie.title))
+          : [...props.selectedMovies, selectedMovie], console.log(selectedMovie)
+        )}
+      >
+        Add to Cart
       </button>
     </div>
   );

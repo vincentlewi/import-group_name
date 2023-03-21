@@ -11,7 +11,7 @@ CF_bp = Blueprint('CF', __name__)
 
 cors = CORS(CF_bp)
 
-df_movie = pd.read_csv('datasets\movies_web_app_final.csv')
+df_movie = pd.read_csv('datasets/to_use/movies_web_app_final.csv')
 
 @CF_bp.route('/', methods=['GET'])
 def get_all():

@@ -11,18 +11,20 @@ function Movie(props: any) {
     <div className='movie-card'>
         <img src = {productpics} alt="movie pic"/>
         <div className='movie-desc'>
-          <p className='movie-title'>{props.title}</p>
-          <p className='short-desc'>Genres: {props.genres}</p>
-          <p className='rating'>{props.imdb_rating} STAR</p>
+          <div className='movie-title'>
+            <p>{props.title}</p>
+          </div>
+            <p className='short-desc'>Genres: {props.genres}</p>
         </div>
         <div>
-          <StarRating setRating={setRating}/>
+          <StarRating rating={rating} setRating={setRating}/>
         </div>
-        <button disabled={!rating}
+        <button 
+          disabled={!rating}
           className='movie-button'
           onClick={() => props.setSelectedMovies(
             props.selectedMovies.find((movie: Object) => JSON.stringify(movie.title) === JSON.stringify(selectedMovie.title))
-            ? props.selectedMovies.filter((movie: Object) => JSON.stringify(movie.title) != JSON.stringify(selectedMovie.title))
+            ? (props.selectedMovies.filter((movie: Object) => JSON.stringify(movie.title) != JSON.stringify(selectedMovie.title), setRating(0)))
             : [...props.selectedMovies, selectedMovie]
           )}
         >

@@ -2,8 +2,10 @@
     border: 1px solid rgb(127, 127, 127);
     margin: 1em;
     flex: 1 1 20%;
-    max-width: 20%;
+    max-width: 25%;
     border-radius: 10px;
+    position: relative;
+    height: 420px;
 }
 
 .movie-card img{
@@ -20,10 +22,13 @@
 .movie-desc{
     text-align: start;
     padding: 10px;
+    position: relative;
+    top: -1rem;
 }
 
 .movie-title{
     font-weight: 600;
+    height: 3rem;
 }
 
 .movie-price{
@@ -33,4 +38,7 @@
 
 .movie-button{
     width: 100%;
+    position: absolute;
+    bottom: 0;
+    left: 0;
 }

@@ -15,10 +15,10 @@ function App() {
       ? !loading
         ? <>
             <MovieList selectedMovies={selectedMovies} setSelectedMovies={setSelectedMovies}/>
-            <Cart selectedMovies={selectedMovies}/>
+            <Cart selectedMovies={selectedMovies} setLoading={setLoading} setRecommendations={setRecommendations}/>
           </>
         : <div>Loading...</div>
-      : <Recommendation />
+      : <Recommendation recommendations={recommendations}/>
       }
     </div>
   )
