@@ -44,35 +44,40 @@ function Cart(props: any) {
     },
     {
         "title": "No Country for Old Men (2007)", 
-        "user_rating": 5,
+        "user_rating": 4.5,
         "movieId": "55820"
+    },
+    {
+        "title": "The League of Extraordinary Gentlemen (2003)", 
+        "user_rating": 5,
+        "movieId": "260207"
     }
   ]
 
-  const requestOptions = {
+  
+  
+  function getRecomm(selectedMovies: Object) {  
+    fetch("http://127.0.0.1:5000/cb_kev", {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(userCart)
-  }
-  
-  function getRecomm() {  
-    fetch("http://127.0.0.1:5000/cb_kev", requestOptions)
+      body: JSON.stringify(selectedMovies)
+  })
     .then((response) => response.json())
     .then((data) => {
         console.log(data)
         console.log('fuck you it works')
     })
   }
-  useEffect(() => {
-    getRecomm();
-  }, []);
+  // useEffect(() => {
+  //   getRecomm();
+  // }, []);
 
   return (
     <div className='cart'>
       {props.selectedMovies.map((movie: Object) => <div key={movie.title}>{movie.userRating} Stars {movie.title}</div>)}
       <button 
         disabled={!props.selectedMovies.length}
-        onClick={() => {console.log(props.selectedMovies)}}
+        onClick={() => getRecomm(props.selectedMovies)}
       >
         Get Recommendation
       </button>

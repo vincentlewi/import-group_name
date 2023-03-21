@@ -1,0 +1,19 @@
+.divider{
+    width: 100%;
+    font-size: 2rem;
+    font-weight: 600;
+    text-align: left;
+    margin: 0 1.5rem;
+}
+
+.list{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin: 0 1.5rem;
+    width: 100%;
+}
+
+.HorizontalScrollInnerChildren{
+    width: 10vw;
+}
