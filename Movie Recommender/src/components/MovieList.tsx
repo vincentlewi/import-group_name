@@ -23,7 +23,7 @@ function MovieList(props: any) {
 
   return (
     <div className='movie-list'>
-        <SearchBar />
+        <SearchBar setSelectedMovies={props.setSelectedMovies} selectedMovies={props.selectedMovies}  />
         {movies.map((movie: any) => 
           <Movie 
             key={movie.movieId} 

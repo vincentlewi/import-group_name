@@ -80,7 +80,7 @@ def get_cb_kev():
     # GET request
     if request.method == 'POST':
         user_cart = json.loads(request.data) #in the future will take json from user directly
-        print(user_cart)
+        # print(user_cart)
         highest_rated = max(user_cart, key=lambda x: x['userRating'])
         movie_id = int(highest_rated['movieId'])
         movie_name = highest_rated['title']
@@ -122,7 +122,7 @@ def get_cb_kev():
             if i>=50:
                 break
         final_dict_json = json.dumps(final_dict, indent=4)
-        print(final_dict_json)
+        # print(final_dict_json)
         return final_dict        
     # if request.method == 'GET':
     #     target_movie = df_movies.loc[[movie_id]]

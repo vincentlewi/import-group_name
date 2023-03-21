@@ -53,8 +53,6 @@ function Cart(props: any) {
         "movieId": "260207"
     }
   ]
-
-  
   
   function getRecomm(selectedMovies: Object) {  
     fetch("http://127.0.0.1:5000/cb_kev", {
@@ -62,11 +60,11 @@ function Cart(props: any) {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(selectedMovies)
   })
-    .then((response) => response.json())
-    .then((data) => {
-        console.log(data)
-        console.log('fuck you it works')
-    })
+  .then((response) => response.json())
+  .then((data) => {
+    props.setRecommendations(data)
+    props.setLoading(false)
+  })
   }
   // useEffect(() => {
   //   getRecomm();
@@ -74,13 +72,16 @@ function Cart(props: any) {
 
   return (
     <div className='cart'>
-      {props.selectedMovies.map((movie: Object) => <div key={movie.title}>{movie.userRating} Stars {movie.title}</div>)}
-      <button 
-        disabled={!props.selectedMovies.length}
-        onClick={() => getRecomm(props.selectedMovies)}
-      >
-        Get Recommendation
-      </button>
+      <h2 className='cart-title'>Movies You've Rated</h2>
+      <div className='cart-content'>
+        {props.selectedMovies.map((movie: Object) => <div key={movie.title}>{movie.userRating}★ - {movie.title}</div>)}
+      </div>
+        <button 
+          disabled={!props.selectedMovies.length}
+          onClick={() => {props.setLoading(true), getRecomm(props.selectedMovies), console.log(props.selectedMovies)}}
+        >
+          Get Recommendation
+        </button>
     </div>
   )
 }

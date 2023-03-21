@@ -17,3 +17,11 @@
 .HorizontalScrollInnerChildren{
     width: 10vw;
 }
+
+.recommendation-list{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin: 0 1.5rem;
+    width: 100%;
+}

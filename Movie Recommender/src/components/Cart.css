@@ -1,3 +1,13 @@
 .cart{
     width: 30%;
 }
+
+.cart-title{
+    margin: 0;
+    padding: 0;
+}
+
+.cart-content{
+    padding: 2rem 3rem;
+    text-align: start;
+}

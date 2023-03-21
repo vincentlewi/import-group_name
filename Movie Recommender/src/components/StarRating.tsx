@@ -61,24 +61,30 @@ const starVariants = {
       </>
     )
   }
+
   function StarRating (props: any) {
-    const [isClicked, setIsClicked] = useState(0);
-    const [isHovering, setIsHovering] = useState(0);
+    const [clicked, setClicked] = useState(0)
+    const [Hovering, setHovering] = useState(0)
     
+    useEffect(() => {
+      setClicked(props.rating)
+      setHovering(props.rating)
+    }, [props.rating])
+
     return (
-      <div className="star-rating">
+      <div className="star-rating" onMouseLeave={() => setHovering(0)}>
         <div className="stars-container">
-          {[0, 1, 2, 3, 4].map((i) => (
+          {[1, 2, 3, 4, 5].map((i) => (
             <motion.div 
               className="star-wrapper"
-              onMouseOver={() => setIsHovering(i)}
-              onClick={() => {setIsClicked(i), props.setRating(i + 1)}}
+              onMouseOver={() => setHovering(i)}
+              onClick={() => {i!=clicked ? (setClicked(i), props.setRating(i)) : (setClicked(0), props.setRating(0))}}
               key={i}
             >
               <Star 
                 i={i} 
-                isHoveringWrapper={isHovering >= i} 
-                isClicked={isClicked >= i}    
+                isHoveringWrapper={Hovering >= i} 
+                isClicked={clicked >= i}    
               />
             </motion.div>
           ))}
