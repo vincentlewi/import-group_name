@@ -10,6 +10,7 @@ function App() {
   let [loading, setLoading] = useState(true)
   let [cbKevMulti, setCbKevMulti] = useState(Array())
   let [cbKev, setCbKev] = useState(Array())
+  let [cfCb, setCfCb] = useState(Array())
 
     // fetch initial movieList
     useEffect(() => {
@@ -27,10 +28,10 @@ function App() {
       ? !loading
         ? <>
             <MovieList selectedMovies={selectedMovies} setSelectedMovies={setSelectedMovies} movies={movieList}/>
-            <Cart selectedMovies={selectedMovies} setLoading={setLoading} setCbKevMulti={setCbKevMulti} setCbKev={setCbKev}/>
+            <Cart selectedMovies={selectedMovies} setLoading={setLoading} setCbKevMulti={setCbKevMulti} setCbKev={setCbKev} setCfCb={setCfCb}/>
           </>
         : <div>Loading...</div>
-      : <Recommendation cbKevMulti={cbKevMulti} cbKev={cbKev}/>
+      : <Recommendation cbKevMulti={cbKevMulti} cbKev={cbKev} cfCb={cfCb}/>
       }
     </div>
   )

@@ -98,7 +98,7 @@ def post_CF_CB():
         # print(final_dict)
         final_dict_json = json.dumps(final_dict, indent=4)
         # print(type(final_dict_json))
-        return final_dict
+        return final_dict_json
 
         # rating_df = pd.DataFrame(user_cart)
         # rating_df = rating_df[['movieId', 'userRating']]

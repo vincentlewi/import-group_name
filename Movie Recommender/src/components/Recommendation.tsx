@@ -15,6 +15,7 @@ function Recommendation(props: any) {
   
   let [cbKevMultiMovies, setCbKevMultiMovies] = useState(Array())
   let [cbKevMovies, setCbKevMovies] = useState(Array())
+  let [cfCbMovies, setCfCbMovies] = useState(Array())
 
   function fetchData(movies: Object, setMovies: Function) {  
     fetch("http://127.0.0.1:5000/", {
@@ -36,6 +37,10 @@ function Recommendation(props: any) {
   useEffect(() => {
     fetchData(props.cbKev, setCbKevMovies);
   }, [props.cbKev]);
+
+  useEffect(() => {
+    fetchData(props.cfCb, setCfCbMovies);
+  }, [props.cfCb]);
 
   // const menu = movies.map((movie: any) => 
   //   1
@@ -63,6 +68,22 @@ function Recommendation(props: any) {
         <div className='recommendation-list'>
           <HorizontalScroll>
               {cbKevMovies.map((movie: any) => 
+                  <Moviee 
+                      key={movie.movieId} 
+                      movieId={movie.movieId} 
+                      title={movie.title}
+                      genres={movie.genres}
+                      imdb_rating={movie.imdb_rating}
+                      selectedMovies={props.selectedMovies} 
+                      setSelectedMovies={props.setSelectedMovies}
+                  />
+              )}
+          </HorizontalScroll>
+        </div>
+        <div className='divider'>Similar Users also Liked</div>
+        <div className='recommendation-list'>
+          <HorizontalScroll>
+              {cfCbMovies.map((movie: any) => 
                   <Moviee 
                       key={movie.movieId} 
                       movieId={movie.movieId} 

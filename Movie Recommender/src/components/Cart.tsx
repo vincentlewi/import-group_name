@@ -3,14 +3,13 @@ import './Cart.css'
 
 function Cart(props: any) {
   function getRecomm(selectedMovies: Object) {  
-    fetch("http://127.0.0.1:5000/CF_CB", {
+    fetch("http://127.0.0.1:5000/cb_kev_multi", {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(selectedMovies)
     })
     .then((response) => response.json())
     .then((data) => {
-      console.log(data) 
       props.setCbKevMulti(data) 
     })
     
@@ -21,10 +20,19 @@ function Cart(props: any) {
     })
     .then((response) => response.json())
     .then((data) => {
-      // console.log(data)
       props.setCbKev(data)
+    })   
+    
+    fetch("http://127.0.0.1:5000/CF_CB", {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(selectedMovies)
+    })
+    .then((response) => response.json())
+    .then((data) => {
+      props.setCfCb(data) 
       props.setLoading(false)
-    })    
+    })
   }
 
   return (

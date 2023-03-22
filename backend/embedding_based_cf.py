@@ -17,7 +17,7 @@ df_movie = pd.read_csv('datasets/to_use/movies_web_app_final.csv')
 def get_all():
     # GET request
     if request.method == 'GET':
-        return df_movie.head(10).to_json(orient='records')
+        return df_movie.head(8).to_json(orient='records')
     
 @CF_bp.route('/search/<string:search>', methods=['GET'])
 def search(search):
