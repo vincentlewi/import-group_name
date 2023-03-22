@@ -10,7 +10,8 @@ function Cart(props: any) {
     })
     .then((response) => response.json())
     .then((data) => {
-      props.setCbKevMulti(data)
+      console.log(data) 
+      props.setCbKevMulti(data) 
     })
     
     fetch("http://127.0.0.1:5000/cb_kev", {

@@ -12,7 +12,7 @@ cors = CORS(app)
 app.register_blueprint(movie_bp)
 app.register_blueprint(cb_kev_bp)
 app.register_blueprint(cb_kev_multi_bp)
-# app.register_blueprint(CF_CB_bp)
+app.register_blueprint(CF_CB_bp)
 # app.register_blueprint(combo_bp)
 
 if __name__ == '__main__':

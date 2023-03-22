@@ -4,20 +4,49 @@ import pandas as pd
 import numpy as np
 from sklearn.metrics.pairwise import cosine_similarity
 import json
-import tensorflow as tf
+# import tensorflow as tf
 
 
 CF_CB_bp = Blueprint('CF_CB', __name__)
 
 cors = CORS(CF_CB_bp)
 
-df_movies_full = pd.read_csv("datasets/to_use/movies_web_app_with_id_final.csv", dtype = {'movieId': int}) #still have UI information 
-df_movies = df_movies_full.iloc[:, 7:]
-df_movies_original = df_movies.copy() #still have movieId
-df_movies.set_index('movieId', inplace=True)
+# GETTING VINCENT'S EMBEDDED MOVIES
+
+ratings = pd.read_csv('datasets/movielens_original/ratings.csv')
+movies = pd.read_csv('datasets/movielens_original/movies.csv')
+ratings = ratings[['movieId', 'rating']]
+movies = movies[['movieId', 'title']]
+
+M = ratings['movieId'].nunique()
+movie_inv_mapper = dict(zip(list(range(M)), np.unique(ratings["movieId"])))
+
+from tensorflow.keras.models import load_model
+model = load_model('backend\CFCB.h5')
+
+dict_weights = {}
+for layer in model.layers:
+    if layer.name in ["users_embeddings", "movies_embeddings"]:
+        dict_weights[layer.name] = layer.weights
+weights = pd.DataFrame(dict_weights["movies_embeddings"][0].numpy())
+df_movies_embeddings = pd.DataFrame(dict_weights["movies_embeddings"][0].numpy())
+df_movies_embeddings.columns = ["emb_ " + str(col) for col in df_movies_embeddings.columns]
+df_movies_embeddings.reset_index(inplace=True)
+df_movies_embeddings.rename(columns={"index":"movieId"}, inplace=True)
+df_movies_embeddings = df_movies_embeddings.merge(movies[["movieId", "title"]].drop_duplicates(), how="left", on="movieId").dropna()
+
+# df_movies_embeddings['movieId'] = df_movies_embeddings['movieId'].apply(lambda x: movie_inv_mapper[x])
+# print(df_movies_embeddings)
+#APPLYING SAME NAME CONVENTIONS AS cb_kev_multi
+df_movies_full = df_movies_embeddings #still have title and moveId
+# print(df_movies_full)
+df_movies_original = df_movies_embeddings.drop('title', axis=1) #still have title
+# print(df_movies_original)
+df_movies = df_movies_original.set_index('movieId')
+# print(df_movies)
 
 @CF_CB_bp.route('/CF_CB', methods=['GET', 'POST'])
-def post_cb_kev_multi():
+def post_CF_CB():
     if request.method == 'POST':
         user_cart = json.loads(request.data)
         # print(user_cart)
@@ -30,7 +59,8 @@ def post_cb_kev_multi():
         # print(rating_df)
         user_movies.set_index('movieId', inplace=True)
         # print(user_movies)
-
+        # print(rating_df)
+        # print(user_movies)
         userProfile = rating_df.transpose().dot(user_movies)
         userProfile = userProfile / user_movies.shape[0]
         # print('this is the user profile')
@@ -62,14 +92,24 @@ def post_cb_kev_multi():
                 'score': score
             }
             i=i+1
-            if i>=50:
+            if i>=10:
                 break
         # print('loop done')
         # print(final_dict)
-
-        final_dict = {
-            "title": "fuck you cunt"
-        }
         final_dict_json = json.dumps(final_dict, indent=4)
-        print(final_dict_json)
-        return final_dict_json       
+        # print(type(final_dict_json))
+        return final_dict
+
+        # rating_df = pd.DataFrame(user_cart)
+        # rating_df = rating_df[['movieId', 'userRating']]
+        # # print('works until here')
+        # final_dict = {
+        #     0: {
+        #     'title': 'No Country for Old Men (2007)', 
+        #     'score': 5,
+        #     'movieId': '55820'
+        #     }
+        # }
+        # final_dict_json = json.dumps(final_dict, indent=4)
+        # # print(final_dict_json)
+        # return final_dict_json       
