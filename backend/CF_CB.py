@@ -22,7 +22,7 @@ M = ratings['movieId'].nunique()
 movie_inv_mapper = dict(zip(list(range(M)), np.unique(ratings["movieId"])))
 
 from tensorflow.keras.models import load_model
-model = load_model('backend\CFCB.h5')
+model = load_model('backend\CF_CB.h5')
 
 dict_weights = {}
 for layer in model.layers:
