@@ -11,9 +11,6 @@
         "config": { "installCommand": "npm install --force" }
       }
     ],
-    "install": {
-      "command": "npm install --force"
-    },
     "routes": [
       { "src": "/recommend", "dest": "src/models/Embedding-based CF.py" },
       { "src": "/(.*)", "dest": "build/$1" }
