@@ -104,8 +104,17 @@ def get_cb_kev():
             return movieId, title
         
         target_movie_cosine_sim_index = df_movies_original.index[df_movies_original['movieId'] == movie_id].values[0] #get 0-based index in cosine similarity array of the target movie
+        target_movieId, target_title = get_info_from_index(target_movie_cosine_sim_index)
+        # print(movieId, title)
         i=0
+        num_of_movies = 10
         final_dict = {}
+        final_dict[0] ={
+            'movieId': target_movieId,
+            'title': target_title
+        }
+        # print('ngentot')
+        # print(final_dict)
 
         for movie in sorted_similar_movies:
             if movie[0] == target_movie_cosine_sim_index:
@@ -113,14 +122,15 @@ def get_cb_kev():
             # print(get_title_from_index(movie[0]))
             movieId, title = get_info_from_index(movie[0])
             score = movie[1]
-            final_dict[i] = {
+            final_dict[i+1] = {
                 'movieId': movieId,
                 'title': title,
                 'score': score
             }
             i=i+1
-            if i>=10:
+            if i>= (num_of_movies + 1):
                 break
+        # print(final_dict)
         final_dict_json = json.dumps(final_dict, indent=4)
         # print(final_dict_json)
         return final_dict        

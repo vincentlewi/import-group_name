@@ -20,6 +20,7 @@ function Cart(props: any) {
     })
     .then((response) => response.json())
     .then((data) => {
+      // console.log(data)
       props.setCbKev(data)
       props.setLoading(false)
     })    
