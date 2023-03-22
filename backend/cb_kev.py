@@ -119,7 +119,7 @@ def get_cb_kev():
                 'score': score
             }
             i=i+1
-            if i>=50:
+            if i>=10:
                 break
         final_dict_json = json.dumps(final_dict, indent=4)
         # print(final_dict_json)

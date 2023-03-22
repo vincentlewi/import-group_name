@@ -6,19 +6,31 @@ import Recommendation from './components/Recommendation'
 
 function App() {
   let [selectedMovies, setSelectedMovies] = useState(Array())
-  let [loading, setLoading] = useState(false)
-  let [recommendations, setRecommendations] = useState(Array())
+  let [movieList, setMovieList] = useState(Array())
+  let [loading, setLoading] = useState(true)
+  let [cbKevMulti, setCbKevMulti] = useState(Array())
+  let [cbKev, setCbKev] = useState(Array())
+
+    // fetch initial movieList
+    useEffect(() => {
+      fetch("http://127.0.0.1:5000/")
+      .then((response) => response.json())
+      .then((data) => {
+          setMovieList(data)
+          setLoading(false)
+      })
+    }, []);
 
   return (
     <div className="App">
-      {!recommendations[0]
+      {!cbKev[0]
       ? !loading
         ? <>
-            <MovieList selectedMovies={selectedMovies} setSelectedMovies={setSelectedMovies}/>
-            <Cart selectedMovies={selectedMovies} setLoading={setLoading} setRecommendations={setRecommendations}/>
+            <MovieList selectedMovies={selectedMovies} setSelectedMovies={setSelectedMovies} movies={movieList}/>
+            <Cart selectedMovies={selectedMovies} setLoading={setLoading} setCbKevMulti={setCbKevMulti} setCbKev={setCbKev}/>
           </>
         : <div>Loading...</div>
-      : <Recommendation recommendations={recommendations}/>
+      : <Recommendation cbKevMulti={cbKevMulti} cbKev={cbKev}/>
       }
     </div>
   )
