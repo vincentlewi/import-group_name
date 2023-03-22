@@ -3,7 +3,7 @@ import './Cart.css'
 
 function Cart(props: any) {
   function getRecomm(selectedMovies: Object) {  
-    fetch("http://127.0.0.1:5000/cb_kev_multi", {
+    fetch("http://127.0.0.1:5000/CF_CB", {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(selectedMovies)

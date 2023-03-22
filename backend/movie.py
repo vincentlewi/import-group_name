@@ -23,7 +23,7 @@ def get_all():
     if request.method == 'POST':
         data = request.get_json()
         movie_ids = [item['movieId'] for item in data.values()]
-        return df_movie[df_movie['movieId'].isin(movie_ids)].to_json(orient='records')
+        return df_movie[df_movie['movieId'].isin(movie_ids)].head(10).to_json(orient='records')
     
 @movie_bp.route('/search/<string:search>', methods=['GET'])
 def search(search):

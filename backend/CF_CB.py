@@ -92,7 +92,7 @@ def post_CF_CB():
                 'score': score
             }
             i=i+1
-            if i>=10:
+            if i>=100:
                 break
         # print('loop done')
         # print(final_dict)
