@@ -12,27 +12,30 @@ const Arrow = ({ text, className }) => {
   const RightArrow = Arrow({ text: ">", className: "arrow-next" });
 
 function Recommendation(props: any) {
-  let [recommendations, setRecommendations] = useState(props.recommendations)
-  const [movies, setMovies] = useState(Array())
-  const [search, setSearch] = useState('')
-  const [query, setQuery] = useState('')
-  const [loading, setLoading] = useState(false)
+  
+  let [cbKevMultiMovies, setCbKevMultiMovies] = useState(Array())
+  let [cbKevMovies, setCbKevMovies] = useState(Array())
 
-  function fetchData() {  
+  function fetchData(movies: Object, setMovies: Function) {  
     fetch("http://127.0.0.1:5000/", {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(recommendations)
+      body: JSON.stringify(movies)
   })
     .then((response) => response.json())
     .then((data) => {
-        setMovies(data)
-        console.log(data)
+      console.log(data)
+      setMovies(data)
     })
   }
+
   useEffect(() => {
-    fetchData();
-  }, []);
+    fetchData(props.cbKevMulti, setCbKevMultiMovies);
+  }, [props.cbKevMulti]);
+
+  useEffect(() => {
+    fetchData(props.cbKev, setCbKevMovies);
+  }, [props.cbKev]);
 
   // const menu = movies.map((movie: any) => 
   //   1
@@ -41,29 +44,25 @@ function Recommendation(props: any) {
   return (
     <div className='list'>
         <div className='divider'>Top Movies for You</div>
-        {/* <ScrollMenu
-            LeftArrow={LeftArrow} 
-            RightArrow={RightArrow}
-            dragging={true}
-            wheel={false}
-            alignCenter={false}
-            clickWhenDrag={false}
-        >
-            {movies.map((movie: any) => 
-                <Moviee 
-                    key={movie.movieId} 
-                    movieId={movie.movieId} 
-                    title={movie.title}
-                    genres={movie.genres}
-                    imdb_rating={movie.imdb_rating}
-                    selectedMovies={props.selectedMovies} 
-                    setSelectedMovies={props.setSelectedMovies}
-                />
-            )}
-        </ScrollMenu>    */}
         <div className='recommendation-list'>
           <HorizontalScroll>
-              {movies.map((movie: any) => 
+              {cbKevMultiMovies.map((movie: any) => 
+                  <Moviee 
+                      key={movie.movieId} 
+                      movieId={movie.movieId} 
+                      title={movie.title}
+                      genres={movie.genres}
+                      imdb_rating={movie.imdb_rating}
+                      selectedMovies={props.selectedMovies} 
+                      setSelectedMovies={props.setSelectedMovies}
+                  />
+              )}
+          </HorizontalScroll>
+        </div>
+        <div className='divider'>Because You Watched...</div>
+        <div className='recommendation-list'>
+          <HorizontalScroll>
+              {cbKevMovies.map((movie: any) => 
                   <Moviee 
                       key={movie.movieId} 
                       movieId={movie.movieId} 

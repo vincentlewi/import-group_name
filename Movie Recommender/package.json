@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "install": "npm install --force"
   },
   "dependencies": {
     "framer": "^2.3.0",

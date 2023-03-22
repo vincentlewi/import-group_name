@@ -7,7 +7,8 @@
       },
       {
         "src": "package.json",
-        "use": "@vercel/static-build"
+        "use": "@vercel/static-build",
+        "config": { "installCommand": "npm install --force" }
       }
     ],
     "routes": [
