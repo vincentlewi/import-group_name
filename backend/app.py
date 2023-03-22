@@ -5,6 +5,7 @@ from cb_kev import cb_kev_bp
 from cb_kev_multi import cb_kev_multi_bp
 from CF_CB import CF_CB_bp
 from combo import combo_bp
+from kevan_wilson_cb import kevan_wilson_cb_bp
 
 app = Flask(__name__)   
 cors = CORS(app)
@@ -13,6 +14,7 @@ app.register_blueprint(movie_bp)
 app.register_blueprint(cb_kev_bp)
 app.register_blueprint(cb_kev_multi_bp)
 app.register_blueprint(CF_CB_bp)
+app.register_blueprint(kevan_wilson_cb_bp)
 # app.register_blueprint(combo_bp)
 
 if __name__ == '__main__':
