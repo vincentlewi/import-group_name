@@ -13,8 +13,8 @@ cors = CORS(CF_CB_bp)
 
 # GETTING VINCENT'S EMBEDDED MOVIES
 
-ratings = pd.read_csv('datasets/movielens_original/ratings.csv')
-movies = pd.read_csv('datasets/movielens_original/movies.csv')
+ratings = pd.read_csv('../datasets/movielens_original/ratings.csv')
+movies = pd.read_csv('../datasets/movielens_original/movies.csv')
 ratings = ratings[['movieId', 'rating']]
 movies = movies[['movieId', 'title']]
 
@@ -22,7 +22,7 @@ M = ratings['movieId'].nunique()
 movie_inv_mapper = dict(zip(list(range(M)), np.unique(ratings["movieId"])))
 
 from tensorflow.keras.models import load_model
-model = load_model('backend/CF_CB.h5')
+model = load_model('../saved_models/CF_1024.h5')
 
 dict_weights = {}
 for layer in model.layers:

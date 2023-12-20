@@ -7,14 +7,14 @@ import json
 
 # import tensorflow as tf
 
-# df = pd.read_csv('datasets/movielens_original/ratings.csv')
-# df_movie = pd.read_csv('datasets/movielens_original/movies.csv')
+# df = pd.read_csv('../datasets/movielens_original/ratings.csv')
+# df_movie = pd.read_csv('../datasets/movielens_original/movies.csv')
 
 cb_kev_bp = Blueprint('cb_kev', __name__)
 
 cors = CORS(cb_kev_bp)
 
-df_movies_full = pd.read_csv("datasets/to_use/movies_web_app_with_id_final.csv", dtype = {'movieId': int}) #still have UI information 
+df_movies_full = pd.read_csv("../datasets/to_use/movies_web_app_with_id_final.csv", dtype = {'movieId': int}) #still have UI information 
 df_movies = df_movies_full.iloc[:, 7:]
 df_movies_original = df_movies.copy() #still have movieId
 df_movies.set_index('movieId', inplace=True)

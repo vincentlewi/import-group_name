@@ -5,14 +5,14 @@ import numpy as np
 import string
 # import tensorflow as tf
 
-# df = pd.read_csv('datasets/movielens_original/ratings.csv')
-# df_movie = pd.read_csv('datasets/movielens_original/movies.csv')
+# df = pd.read_csv('../datasets/movielens_original/ratings.csv')
+# df_movie = pd.read_csv('../datasets/movielens_original/movies.csv')
 
 movie_bp = Blueprint('movie', __name__)
 
 cors = CORS(movie_bp)
 
-df_movie = pd.read_csv('datasets/to_use/movies_web_app_with_id_final.csv')
+df_movie = pd.read_csv('../datasets/to_use/movies_web_app_with_id_final.csv')
 
 @movie_bp.route('/', methods=['GET', 'POST'])
 def get_all():

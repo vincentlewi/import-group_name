@@ -11,7 +11,7 @@
   },
   "dependencies": {
     "framer": "^2.3.0",
-    "framer-motion": "^10.6.0",
+    "framer-motion": "^7.6.12",
     "motion": "^10.15.5",
     "react-horizontal-scrolling": "^0.1.13",
     "react-horizontal-scrolling-menu": "^4.0.0",

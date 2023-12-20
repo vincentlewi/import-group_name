@@ -3,3 +3,5 @@ datasets/
 *.csv
 *.pyc
 node_modules/
+venv/
+*.png
